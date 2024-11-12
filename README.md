@@ -14,10 +14,10 @@ Este guia será dividido em etapas para demonstrar desde a criação de tabelas,
 ## Passo 1: Criação do Banco de Dados e das Tabelas
 #### 1.1 Criando o DB
 
-'''SQL
+```SQL
 CREATE DATABASE biblioteca;
 USE biblioteca;
-'''
+```
 
 #### 1.2 Criando a tabela 'editora'
 
