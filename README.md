@@ -14,14 +14,14 @@ Este guia será dividido em etapas para demonstrar desde a criação de tabelas,
 ## Passo 1: Criação do Banco de Dados e das Tabelas
 #### 1.1 Criando o DB
 
-'''
+'''SQL
 CREATE DATABASE biblioteca;
 USE biblioteca;
 '''
 
-#### 1,2 Criando a tabela 'editora'
+#### 1.2 Criando a tabela 'editora'
 
-'''
+'''SQL
 CREATE TABLE editora (
     id_editora INT PRIMARY KEY AUTO_INCREMENT,
     nome_editora VARCHAR(100) NOT NULL,
@@ -31,7 +31,7 @@ CREATE TABLE editora (
 
 #### 1.3 Criando a tabela 'autor'
 
-'''
+'''SQL
 CREATE TABLE autor (
     id_autor INT PRIMARY KEY AUTO_INCREMENT,
     nome_autor VARCHAR (200),
@@ -41,7 +41,7 @@ CREATE TABLE autor (
 
 #### 1.4 Criando a tabela 'assunto'
 
-'''
+'''SQL
 CREATE TABLE assunto (
     id_assunto INT PRIMARY KEY AUTO_INCREMENT,
     descricao_assunto VARCHAR(300) NOT NULL
@@ -49,7 +49,7 @@ CREATE TABLE assunto (
 '''
 
 #### 1.5 Criando a tabela 'livro'
-'''
+'''SQL
 CREATE TABLE livro (
     id_livro INT PRIMARY KEY AUTO_INCREMENT,
     titulo VARCHAR(150) NOT NULL,
@@ -66,7 +66,7 @@ CREATE TABLE livro (
 #### 1.6 Criando uma tabela EXTRA
 A tabela EXTRA vai servir para exemplificar a exclusão
 
-'''
+'''SQL
 CREATE TABLE extra(
     id INT PRIMARY KEY AUTO_INCREMENT,
     produtos VARCHAR(50),
@@ -133,4 +133,53 @@ VALUES
 ('Dom Casmurro',1899,2,2,4),
 ('A Biblioteca da Meia-Noite',2020,3,3,2),
 ('Memórias Póstumas de Brás Cubas',1881,1,2,4);
+'''
+
+## Passo 5: Atualizando os dados usando 'UPDATE'
+Podemos atualizar os dados com o comando UPDATE.
+Vamos corrigir a data de publicação do livro 'Capitães da Areia'
+
+'''SQL
+UPDATE livro
+SET ano_publicacao = 1938
+WHERE titulo = 'Capitães da Areia';
+'''
+
+### Passo 6: Excluido os dados usando 'DELETE'
+Para remover os registros de uma tabela usamos o comando 'DELETE'.
+Vamos excluir o livro Memorias Postumas de Brás Cubas'.
+
+'''SQL
+DELETE FROM livro
+WHERE id_livro = 4;
+'''
+
+## Passo 7: Consultando os dados usando 'SELECT'
+É possível selecionar os dados para visualizar da forma como quiser. 
+Para isso usamos o comando 'SELECT'
+
+#### 7.1 Selecionar todos os livros com suas editoras e autores
+Vamos usar dadps das tabelas 'livros', 'editora', 'autor', e 'assunto' usando o comando 'JOIN'
+
+'''SQL
+SELECT livro.titulo AS titulo,
+    editora.nome_editora AS editora,
+    autor.nome_autor AS autor,
+    assunto.descricao_assunto AS tema,
+    livro.ano_publicacao AS ano
+FROM livro
+JOIN editora ON livro.id_editora = editora.id_editora
+JOIN autor ON livro.id_autor = autor.id_autor
+JOIN assunto ON livro.id_assunto = assunto.id_assunto;
+'''
+
+#### 7.2 Exibir apenas livros do mesmo tema
+Para selecionar todos os livros que pertencem ao mesmo assunto, podemos fazer uma consulta utilizando o comando 'SELECT' com uma condição 'WHERE' especificando o que deseja visualizar.
+
+'''SQL
+SELECT livro.titulo AS titulo,
+	assunto.descricao_assunto AS tema
+FROM livro
+JOIN assunto ON livro.assunto = assunto.id_assunto
+WHERE assunto.id_assunto = 4;
 '''
